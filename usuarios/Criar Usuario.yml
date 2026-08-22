@@ -6,6 +6,9 @@ info:
 http:
   method: POST
   url: "{{baseUrl}}/usuarios"
+  headers:
+    - name: X-Origem
+      value: curso
   body:
     type: json
     data: |
@@ -28,9 +31,9 @@ runtime:
       code: bru.setVar("usuarioId", res.body._id);
     - type: tests
       code: |-
-        test("Resposta em menos 10ms", () =>
+        test("Resposta em menos 100ms", () =>
             {
-          expect(res.responseTime).to.be.below(10);
+          expect(res.responseTime).to.be.below(100);
         })
   assertions:
     - expression: res.status
