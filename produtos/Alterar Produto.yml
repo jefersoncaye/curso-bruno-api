@@ -1,26 +1,25 @@
 info:
-  name: Alterar Usuario
+  name: Alterar Produto
   type: http
-  seq: 4
+  seq: 5
 
 http:
   method: PUT
-  url: "{{baseUrl}}/usuarios/{{usuarioId}}"
+  url: "{{baseUrl}}/produtos/{{produtoId}}"
   body:
     type: json
-    data: |
+    data: |-
       {
-        "nome": "{{nomeGerado}}",
-        "email": "alterado-{{emailGerado}}",
-        "password": "novasenha456",
-        "administrador": "true"
+        "nome": "{{produtoNome}}",
+        "preco": 800,
+        "descricao": "Mouse sem Fio",
+        "quantidade": 381
       }
-  auth: inherit
+  auth:
+    type: bearer
+    token: "{{token}}"
 
 runtime:
-  scripts:
-    - type: after-response
-      code: bru.setVar('emailAlterado',"alterado-" + bru.getVar("emailGerado"));
   assertions:
     - expression: res.status
       operator: eq
